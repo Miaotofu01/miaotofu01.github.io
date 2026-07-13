@@ -1,3 +1,6 @@
+import './styles/tokens.css';
+import './styles/global.css';
+import './styles/code.css';
 import { initThemeToggle } from './components/theme-toggle';
 import { initSearch } from './components/site-search';
 import { initCursorRing } from './components/cursor-ring';

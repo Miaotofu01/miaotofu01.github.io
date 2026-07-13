@@ -1,12 +1,17 @@
 import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
 
-@customElement('giscus-comments')
 export class GiscusComments extends LitElement {
-  @property() repo = '';
-  @property() repoid = '';
-  @property() categoryid = '';
-  @property() term = '';
+  static properties = {
+    repo: { type: String },
+    repoid: { type: String },
+    categoryid: { type: String },
+    term: { type: String },
+  };
+
+  repo = '';
+  repoid = '';
+  categoryid = '';
+  term = '';
 
   private loaded = false;
   private observer: IntersectionObserver | null = null;
@@ -55,3 +60,5 @@ export class GiscusComments extends LitElement {
 
   render() { return html`<div class="giscus"></div>`; }
 }
+
+customElements.define('giscus-comments', GiscusComments);

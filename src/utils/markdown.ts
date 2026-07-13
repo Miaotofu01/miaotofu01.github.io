@@ -63,8 +63,9 @@ export async function renderMarkdown(raw: string, lineNumbers = false): Promise<
   const hl = await getHighlighter();
 
   const renderer = {
-    code(code: string, lang?: string) {
-      const l = extractLang(lang);
+    code(token: { text: string; lang?: string; escaped?: boolean }) {
+      const code = token.text;
+      const l = extractLang(token.lang);
       const dark = hl.codeToHtml(code, { lang: l, theme: 'github-dark' });
       const light = hl.codeToHtml(code, { lang: l, theme: 'github-light' });
       const extractCode = (html: string) => {

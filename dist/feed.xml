@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>红豆的博客</title>
+  <subtitle>软件工程学生 · ACMer · 偶尔写博客</subtitle>
+  <link href="https://miaotofu01.github.io/feed.xml" rel="self"/>
+  <link href="https://miaotofu01.github.io/"/>
+  <id>https://miaotofu01.github.io/</id>
+  <updated>2026-07-13T09:41:59.567Z</updated>
+  <author>
+    <name>红豆</name>
+    <email>user@example.com</email>
+  </author>
+  <entry>
+    <title>Hello, 博客世界！</title>
+    <link href="https://miaotofu01.github.io/posts/hello-world/"/>
+    <id>https://miaotofu01.github.io/posts/hello-world/</id>
+    <published>2026-07-13T00:00:00.000Z</published>
+    <updated>2026-07-13T00:00:00.000Z</updated>
+    <summary>这是我的第一篇博客文章，从零搭建的个人空间。</summary>
+    <category term="日常"/>
+    <category term="随笔"/>
+  </entry>
+</feed>
