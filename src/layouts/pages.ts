@@ -14,6 +14,23 @@ function tagBadges(tags: string[]): string {
   return tags.map(t => `<a href="/tags/${encodeURIComponent(t)}/" class="tag-badge">${escapeH(t)}</a>`).join('');
 }
 
+// Compact single-column list item — for tag/category/archive listing pages
+function postListItem(p: PostMeta): string {
+  const excerpt = p.description.length > 90 ? p.description.slice(0, 90) + '…' : p.description;
+  return `
+<a href="/posts/${p.slug}/" class="post-list-item reveal">
+  <div class="post-list-head">
+    <span class="post-list-date">${p.date}</span>
+    <span class="post-list-title">${escapeH(p.title)}</span>
+  </div>
+  <div class="post-list-meta">
+    <a href="/categories/${encodeURIComponent(p.category)}/">${escapeH(p.category)}</a>
+    ${p.tags.length ? '· ' + tagBadges(p.tags) : ''}
+  </div>
+  ${excerpt ? `<div class="post-list-excerpt">${escapeH(excerpt)}</div>` : ''}
+</a>`;
+}
+
 function postCardPinned(p: PostMeta): string {
   return `
 <a href="/posts/${p.slug}/" class="post-card-pinned reveal">
@@ -136,7 +153,7 @@ export function renderCategoryDetailPage(category: string, posts: PostMeta[], _c
     return renderBase({ title: category, content: `<div class="page-header"><h1 class="page-title">${iconFolder} ${escapeH(category)}</h1></div><div class="empty-state">这个分类下还没有文章哦～</div>` });
   }
   const content = `<div class="page-header"><h1 class="page-title">${iconFolder} ${escapeH(category)} &middot; ${posts.length} 篇文章</h1></div>
-<div class="post-grid">${posts.map(postCard).join('')}</div>`;
+<div class="post-list">${posts.map(postListItem).join('')}</div>`;
   return renderBase({ title: category, content });
 }
 
@@ -154,12 +171,13 @@ export function renderTagsPage(categories: string[], tagCounts: TagCount[], allP
 
   const allPostsHtml = allPosts.length === 0
     ? '<div class="empty-state">还没有任何文章哦～</div>'
-    : allPosts.map(p => `<div class="post-card-wrapper" data-category="${escapeH(p.category)}" data-tags="${p.tags.map(escapeH).join(',')}">${postCard(p)}</div>`).join('');
+    : allPosts.map(p => `<div class="post-card-wrapper" data-category="${escapeH(p.category)}" data-tags="${p.tags.map(escapeH).join(',')}">${postListItem(p)}</div>`).join('');
 
   const content = `<div class="page-header"><h1 class="page-title">${iconTag} 标签</h1></div>
 <div class="cat-filter">${catFilter}</div>
 <div class="tag-cloud" style="max-width:var(--container-max);margin:0 auto;padding:16px 24px;">${tagItems}</div>
-<div class="post-grid" id="tag-post-grid">${allPostsHtml}</div>`;
+<hr class="section-divider">
+<div class="post-list" id="tag-post-grid">${allPostsHtml}</div>`;
   return renderBase({ title: '标签', content });
 }
 
@@ -168,7 +186,7 @@ export function renderTagDetailPage(tag: string, posts: PostMeta[], _config: Sit
     return renderBase({ title: tag, content: `<div class="page-header"><h1 class="page-title">${iconTag} ${escapeH(tag)}</h1></div><div class="empty-state">还没有关于「${escapeH(tag)}」的文章哦～</div>` });
   }
   const content = `<div class="page-header"><h1 class="page-title">${iconTag} ${escapeH(tag)} &middot; ${posts.length} 篇文章</h1></div>
-<div class="post-grid">${posts.map(postCard).join('')}</div>`;
+<div class="post-list">${posts.map(postListItem).join('')}</div>`;
   return renderBase({ title: tag, content });
 }
 

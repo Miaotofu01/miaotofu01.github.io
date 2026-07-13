@@ -413,6 +413,80 @@ nav {
 .tag-size-md { font-size: 15px; font-weight: 500; color: var(--fg-default); }
 .tag-size-sm { font-size: 13px; font-weight: 400; }
 
+/* ═══════════════════════════════════════════
+   POST LIST — compact single-column for tag/category pages
+   ═══════════════════════════════════════════ */
+.post-list {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-list-item {
+  display: block;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-muted);
+  color: inherit;
+  transition: background 150ms var(--ease-out), transform 250ms var(--ease-elastic);
+}
+.post-list-item:first-child { border-top: 1px solid var(--border-muted); }
+.post-list-item:hover {
+  background: var(--bg-surface);
+  margin: 0 -12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: var(--radius-md);
+  border-color: transparent;
+  transform: translateX(4px);
+  color: inherit;
+}
+.post-list-item:hover + .post-list-item { border-color: transparent; }
+
+.post-list-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.post-list-date {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.post-list-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg-default);
+  line-height: 1.4;
+}
+
+.post-list-meta {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-left: calc(52px + 16px); /* date width + gap */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.post-list-meta a { color: var(--fg-muted); }
+.post-list-meta a:hover { color: var(--color-accent); }
+.post-list-meta .tag-badge { font-size: 11px; }
+
+.post-list-excerpt {
+  font-size: 14px;
+  color: var(--fg-body);
+  line-height: 1.6;
+  margin-top: 6px;
+  margin-left: calc(52px + 16px);
+}
+
 .friend-list { display: flex; flex-direction: column; gap: 8px; }
 .friend-item { font-size: 14px; color: var(--fg-muted); }
 .friend-item a { font-weight: 500; color: var(--fg-body); }
