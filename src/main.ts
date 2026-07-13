@@ -7,6 +7,7 @@ import { initCursorSystem } from './components/cursor-system';
 import { initMobileNav } from './components/mobile-nav';
 import { initReadCounter } from './components/read-counter';
 import { initScrollObserver } from './components/scroll-observer';
+import { initNavScroll } from './components/nav-scroll';
 import './components/giscus-comment';
 
 initCursorSystem();
@@ -15,3 +16,4 @@ initSearch();
 initMobileNav();
 initReadCounter();
 initScrollObserver();
+initNavScroll();

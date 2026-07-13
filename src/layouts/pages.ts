@@ -16,7 +16,7 @@ function tagBadges(tags: string[]): string {
 
 function postCardPinned(p: PostMeta): string {
   return `
-<a href="/posts/${p.slug}/" class="post-card-pinned">
+<a href="/posts/${p.slug}/" class="post-card-pinned reveal">
   <div class="pinned-badge">${iconPin} 置顶</div>
   <div class="post-title">${escapeH(p.title)}</div>
   <div class="post-meta">
@@ -30,7 +30,7 @@ function postCardPinned(p: PostMeta): string {
 function postCard(p: PostMeta): string {
   const excerpt = p.description.length > 80 ? p.description.slice(0, 80) + '…' : p.description;
   return `
-<a href="/posts/${p.slug}/" class="post-card animate-in">
+<a href="/posts/${p.slug}/" class="post-card reveal">
   <div class="post-title">${escapeH(p.title)}</div>
   <div class="post-meta">
     ${p.date} · <a href="/categories/${encodeURIComponent(p.category)}/">${escapeH(p.category)}</a>
