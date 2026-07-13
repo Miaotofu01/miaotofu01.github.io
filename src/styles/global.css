@@ -971,6 +971,4 @@ footer a:hover { color: var(--fg-default); }
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
-  body { cursor: auto; }
-  .global-cursor, .cursor-canvas, .click-flash, .ripple-ring { display: none; }
 }

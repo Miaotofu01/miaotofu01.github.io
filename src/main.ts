@@ -9,12 +9,7 @@ import { initReadCounter } from './components/read-counter';
 import { initScrollObserver } from './components/scroll-observer';
 import './components/giscus-comment';
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (!prefersReduced) {
-  initCursorSystem();
-}
-
+initCursorSystem();
 initThemeToggle();
 initSearch();
 initMobileNav();

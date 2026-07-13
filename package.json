@@ -8,6 +8,7 @@
     "build": "tsx scripts/build.ts && vite build --config vite.build.ts",
     "build:ssg": "tsx scripts/build.ts",
     "build:bundle": "vite build --config vite.build.ts",
+    "serve": "npm run build && vite preview",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
