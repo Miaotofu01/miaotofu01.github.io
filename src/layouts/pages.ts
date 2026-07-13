@@ -1,6 +1,15 @@
 import { renderBase, escapeH } from './base';
 import type { PostMeta, CategoryInfo, TagCount, SiteConfig } from '../types';
 
+// Inline SVG icon helpers — no emoji, per design system
+const iconPin = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" stroke="none"/></svg>';
+const iconEdit = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const iconTag = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const iconLink = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const iconFolder = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const iconEye = '<svg class="icon-xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const iconArchive = '<svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8v13H3V8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 3h22v5H1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="12" x2="14" y2="12" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+
 function tagBadges(tags: string[]): string {
   return tags.map(t => `<a href="/tags/${encodeURIComponent(t)}/" class="tag-badge">${escapeH(t)}</a>`).join('');
 }
@@ -8,7 +17,7 @@ function tagBadges(tags: string[]): string {
 function postCardPinned(p: PostMeta): string {
   return `
 <a href="/posts/${p.slug}/" class="post-card-pinned">
-  <div class="pinned-badge">★ 置顶</div>
+  <div class="pinned-badge">${iconPin} 置顶</div>
   <div class="post-title">${escapeH(p.title)}</div>
   <div class="post-meta">
     ${p.date} · <a href="/categories/${encodeURIComponent(p.category)}/">${escapeH(p.category)}</a>
@@ -82,8 +91,8 @@ export function renderHomePage(
 ${pinnedHtml}
 
 <section class="section-header">
-  <h2 class="section-title">📝 最近文章</h2>
-  <a href="/posts/" class="section-more">查看全部文章 →</a>
+  <h2 class="section-title">${iconEdit} 最近文章</h2>
+  <a href="/posts/" class="section-more">查看全部文章 &rarr;</a>
 </section>
 
 <div class="post-grid">
@@ -94,13 +103,13 @@ ${pinnedHtml}
 
 <div class="home-bottom">
   <div>
-    <div class="section-title" style="margin-bottom:12px">🏷️ 标签</div>
+    <div class="section-title" style="margin-bottom:12px">${iconTag} 标签</div>
     <div class="tag-cloud">${tagsHtml}</div>
   </div>
   <div>
-    <div class="section-title" style="margin-bottom:12px">🔗 友链</div>
+    <div class="section-title" style="margin-bottom:12px">${iconLink} 友链</div>
     <div class="friend-list">${friendsHtml}</div>
-    ${config.friends.length > 8 ? `<a href="/friends/" class="section-more">更多友链 →</a>` : ''}
+    ${config.friends.length > 8 ? `<a href="/friends/" class="section-more">更多友链 &rarr;</a>` : ''}
   </div>
 </div>`;
 
@@ -110,23 +119,23 @@ ${pinnedHtml}
 export function renderCategoriesPage(categories: CategoryInfo[], _config: SiteConfig): string {
   const cards = categories.map(c => `
     <a href="/categories/${encodeURIComponent(c.name)}/" class="cat-card">
-      <div class="cat-card-name">${escapeH(c.name)}</div>
+      <div class="cat-card-name">${iconFolder} ${escapeH(c.name)}</div>
       <div class="cat-card-count">${c.count} 篇文章</div>
       <ul class="cat-card-posts">
         ${c.recentPosts.slice(0, 3).map(p => `<li>${escapeH(p.title)}</li>`).join('')}
       </ul>
     </a>`).join('');
 
-  const content = `<div class="page-header"><h1 class="page-title">分类</h1></div>
+  const content = `<div class="page-header"><h1 class="page-title">${iconFolder} 分类</h1></div>
 <div class="cat-grid">${cards}</div>`;
   return renderBase({ title: '分类', content });
 }
 
 export function renderCategoryDetailPage(category: string, posts: PostMeta[], _config: SiteConfig): string {
   if (posts.length === 0) {
-    return renderBase({ title: category, content: `<div class="page-header"><h1 class="page-title">${escapeH(category)}</h1></div><div class="empty-state">这个分类下还没有文章哦～</div>` });
+    return renderBase({ title: category, content: `<div class="page-header"><h1 class="page-title">${iconFolder} ${escapeH(category)}</h1></div><div class="empty-state">这个分类下还没有文章哦～</div>` });
   }
-  const content = `<div class="page-header"><h1 class="page-title">${escapeH(category)} · ${posts.length} 篇文章</h1></div>
+  const content = `<div class="page-header"><h1 class="page-title">${iconFolder} ${escapeH(category)} &middot; ${posts.length} 篇文章</h1></div>
 <div class="post-grid">${posts.map(postCard).join('')}</div>`;
   return renderBase({ title: category, content });
 }
@@ -147,7 +156,7 @@ export function renderTagsPage(categories: string[], tagCounts: TagCount[], allP
     ? '<div class="empty-state">还没有任何文章哦～</div>'
     : allPosts.map(p => `<div class="post-card-wrapper" data-category="${escapeH(p.category)}" data-tags="${p.tags.map(escapeH).join(',')}">${postCard(p)}</div>`).join('');
 
-  const content = `<div class="page-header"><h1 class="page-title">标签</h1></div>
+  const content = `<div class="page-header"><h1 class="page-title">${iconTag} 标签</h1></div>
 <div class="cat-filter">${catFilter}</div>
 <div class="tag-cloud" style="max-width:var(--container-max);margin:0 auto;padding:16px 24px;">${tagItems}</div>
 <div class="post-grid" id="tag-post-grid">${allPostsHtml}</div>`;
@@ -156,9 +165,9 @@ export function renderTagsPage(categories: string[], tagCounts: TagCount[], allP
 
 export function renderTagDetailPage(tag: string, posts: PostMeta[], _config: SiteConfig): string {
   if (posts.length === 0) {
-    return renderBase({ title: tag, content: `<div class="page-header"><h1 class="page-title">🏷️ ${escapeH(tag)}</h1></div><div class="empty-state">还没有关于「${escapeH(tag)}」的文章哦～</div>` });
+    return renderBase({ title: tag, content: `<div class="page-header"><h1 class="page-title">${iconTag} ${escapeH(tag)}</h1></div><div class="empty-state">还没有关于「${escapeH(tag)}」的文章哦～</div>` });
   }
-  const content = `<div class="page-header"><h1 class="page-title">🏷️ ${escapeH(tag)} · ${posts.length} 篇文章</h1></div>
+  const content = `<div class="page-header"><h1 class="page-title">${iconTag} ${escapeH(tag)} &middot; ${posts.length} 篇文章</h1></div>
 <div class="post-grid">${posts.map(postCard).join('')}</div>`;
   return renderBase({ title: tag, content });
 }
@@ -175,7 +184,7 @@ export function renderArchivePage(yearGroups: Map<number, PostMeta[]>, _config: 
     return `<h2 class="archive-year">${year}</h2><ul class="archive-list">${items}</ul>`;
   }).join('');
 
-  const content = `<div class="archive">${html}</div>`;
+  const content = `<div class="page-header"><h1 class="page-title">${iconArchive} 归档</h1></div><div class="archive">${html}</div>`;
   return renderBase({ title: '归档', content });
 }
 
@@ -188,7 +197,7 @@ export function renderFriendsPage(config: SiteConfig): string {
     </a>`).join('');
 
   const content = `<div class="page-header">
-  <h1 class="page-title">🔗 友链</h1>
+  <h1 class="page-title">${iconLink} 友链</h1>
   <p class="page-subtitle">一些常去的博客和站点</p>
 </div>
 <div class="friend-grid">${cards}</div>
@@ -196,13 +205,13 @@ export function renderFriendsPage(config: SiteConfig): string {
   return renderBase({ title: '友链', content });
 }
 
-export function render404Page(config: SiteConfig): string {
+export function render404Page(_config: SiteConfig): string {
   const content = `
 <div class="page-404">
-  <div class="page-404-face">(╯°□°）╯︵ ┻━┻</div>
+  <div class="page-404-face">(╯&deg;□&deg;）╯︵ ┻━┻</div>
   <h1 class="page-404-title">这个页面被小夜吃掉了</h1>
-  <p class="page-404-desc">可能你输错了地址，也可能是我<br>在整理文件时不小心把它咽下去了…</p>
-  <a href="/" class="page-404-home">← 回首页</a>
+  <p class="page-404-desc">可能你输错了地址，也可能是我<br>在整理文件时不小心把它咽下去了&hellip;</p>
+  <a href="/" class="page-404-home">&larr; 回首页</a>
   <p class="page-404-joke">（小夜的胃里还有空间，要不去别的地方转转？）</p>
 </div>`;
   return renderBase({ title: '404', content });

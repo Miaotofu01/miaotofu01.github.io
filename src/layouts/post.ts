@@ -29,7 +29,7 @@ export function renderPostPage(post: Post, prevPost?: { title: string; slug: str
   <header class="article-header">
     <h1 class="article-title">${escapeH(post.title)}</h1>
     <div class="article-meta">
-      ${post.date} · <a href="/categories/${encodeURIComponent(post.category)}/">${escapeH(post.category)}</a> · ${post.readingTime} min read · <span class="read-count" data-slug="${post.slug}">👁 ...次阅读</span>
+      ${post.date} · <a href="/categories/${encodeURIComponent(post.category)}/">${escapeH(post.category)}</a> · ${post.readingTime} min read · <span class="read-count" data-slug="${post.slug}"><svg class="icon-xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg> ...次阅读</span>
     </div>
     <div class="tag-badges">${tagsHtml}</div>
   </header>

@@ -213,6 +213,12 @@ nav {
 .hero-links a:active { transform: scale(0.95); }
 .hero-links svg { width: 18px; height: 18px; }
 
+/* Inline SVG icons */
+.icon-sm { width: 16px; height: 16px; vertical-align: -3px; display: inline; }
+.icon-xs { width: 14px; height: 14px; vertical-align: -2px; display: inline; }
+.section-title .icon-sm { vertical-align: -4px; margin-right: 4px; }
+.pinned-badge .icon-sm { vertical-align: -3px; margin-right: 3px; color: var(--color-accent); }
+
 /* ═══════════════════════════════════════════
    SECTION HEADERS
    ═══════════════════════════════════════════ */
@@ -839,8 +845,14 @@ footer a { color: var(--fg-muted); }
 footer a:hover { color: var(--fg-default); }
 
 /* ═══════════════════════════════════════════
-   OSLO! CURSOR STYLES
+   OSU! CURSOR STYLES
    ═══════════════════════════════════════════ */
+.cursor-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
 .global-cursor {
   position: fixed;
   pointer-events: none;
@@ -891,32 +903,30 @@ footer a:hover { color: var(--fg-default); }
   position: fixed;
   pointer-events: none;
   z-index: 9998;
-  width: 80px; height: 80px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(188, 140, 255, 0.3), transparent);
+  background: radial-gradient(circle, rgba(88, 166, 255, 0.4) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   animation: clickFlash 350ms var(--ease-out) forwards;
 }
 
-/* Click ripple (hero only) */
-@keyframes clickRipple {
-  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
-.click-ripple {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9997;
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  border: 2px solid rgba(188, 140, 255, 0.4);
-  background: radial-gradient(circle, rgba(188, 140, 255, 0.15), transparent);
-  transform: translate(-50%, -50%);
-  animation: clickRipple 600ms var(--ease-out) forwards;
+/* Click ripple rings (hero only) */
+@keyframes rippleExpand {
+  0%   { width: 0; height: 0; opacity: 0.8; }
+  100% { width: 120px; height: 120px; opacity: 0; }
 }
 
-.glow-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-.trail-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+.ripple-ring {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 600ms var(--ease-out) forwards;
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.4);
+}
 
 /* ═══════════════════════════════════════════
    ANIMATIONS
@@ -962,5 +972,5 @@ footer a:hover { color: var(--fg-default); }
   }
   html { scroll-behavior: auto; }
   body { cursor: auto; }
-  .global-cursor, .glow-canvas, .trail-canvas, .click-flash, .click-ripple { display: none; }
+  .global-cursor, .cursor-canvas, .click-flash, .ripple-ring { display: none; }
 }

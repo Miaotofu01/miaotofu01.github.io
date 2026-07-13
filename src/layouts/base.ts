@@ -33,8 +33,7 @@ export function renderBase({ title, content, description, isHome }: BaseOptions)
   <link rel="stylesheet" href="/assets/main.css">
 </head>
 <body class="${bodyClass}">
-  <canvas class="glow-canvas" id="glow-canvas" aria-hidden="true"></canvas>
-  <canvas class="trail-canvas" id="trail-canvas" aria-hidden="true"></canvas>
+  <canvas class="cursor-canvas" id="cursor-canvas" aria-hidden="true"></canvas>
   <div class="global-cursor" id="global-cursor" aria-hidden="true"></div>
 
   <nav>

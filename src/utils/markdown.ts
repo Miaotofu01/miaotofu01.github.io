@@ -45,12 +45,12 @@ function buildCodeBlock(code: string, lang: string, dark: string, light: string,
       var block = this.closest('.code-block');
       var code = block.querySelector('code').innerText;
       navigator.clipboard.writeText(code).then(function() {
-        this.textContent = '\\u2713';
+        this.textContent = 'Copied!';
         this.classList.add('copied');
         var self = this;
-        setTimeout(function() { self.textContent = '\\u{1F4CB}'; self.classList.remove('copied'); }, 1500);
+        setTimeout(function() { self.textContent = 'Copy'; self.classList.remove('copied'); }, 1500);
       }.bind(this));
-    ">📋</button>
+    ">Copy</button>
   </div>
   <div class="code-block-body">
     <pre class="code-dark"><code>${codeContent(dark)}</code></pre>
