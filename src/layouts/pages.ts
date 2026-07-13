@@ -14,7 +14,7 @@ function tagBadges(tags: string[]): string {
   return tags.map(t => `<a href="/tags/${encodeURIComponent(t)}/" class="tag-badge">${escapeH(t)}</a>`).join('');
 }
 
-// Compact single-column list item — for tag/category/archive listing pages
+// Compact single-column list item — title + meta + tags + excerpt in one card
 function postListItem(p: PostMeta): string {
   const excerpt = p.description.length > 90 ? p.description.slice(0, 90) + '…' : p.description;
   return `
@@ -25,7 +25,7 @@ function postListItem(p: PostMeta): string {
   </div>
   <div class="post-list-meta">
     <a href="/categories/${encodeURIComponent(p.category)}/">${escapeH(p.category)}</a>
-    ${p.tags.length ? '· ' + tagBadges(p.tags) : ''}
+    ${tagBadges(p.tags)}
   </div>
   ${excerpt ? `<div class="post-list-excerpt">${escapeH(excerpt)}</div>` : ''}
 </a>`;

@@ -422,33 +422,30 @@ nav {
   padding: 0 24px 48px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .post-list-item {
   display: block;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border-muted);
+  padding: 16px 20px;
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
   color: inherit;
-  transition: background 150ms var(--ease-out), transform 250ms var(--ease-elastic);
+  transition: background 150ms var(--ease-out), border-color 180ms var(--ease-out), transform 250ms var(--ease-elastic);
 }
-.post-list-item:first-child { border-top: 1px solid var(--border-muted); }
 .post-list-item:hover {
   background: var(--bg-surface);
-  margin: 0 -12px;
-  padding-left: 12px;
-  padding-right: 12px;
-  border-radius: var(--radius-md);
-  border-color: transparent;
-  transform: translateX(4px);
+  border-color: var(--border-default);
+  transform: translateY(-2px) scale(1.01);
   color: inherit;
 }
-.post-list-item:hover + .post-list-item { border-color: transparent; }
+.post-list-item:active { transform: scale(0.98); }
 
 .post-list-head {
   display: flex;
   align-items: baseline;
-  gap: 16px;
-  margin-bottom: 4px;
+  gap: 14px;
+  margin-bottom: 8px;
 }
 
 .post-list-date {
@@ -456,6 +453,7 @@ nav {
   font-size: 13px;
   color: var(--fg-muted);
   white-space: nowrap;
+  min-width: 48px;
 }
 
 .post-list-title {
@@ -469,11 +467,11 @@ nav {
 .post-list-meta {
   font-size: 13px;
   color: var(--fg-muted);
-  margin-left: calc(52px + 16px); /* date width + gap */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 .post-list-meta a { color: var(--fg-muted); }
 .post-list-meta a:hover { color: var(--color-accent); }
@@ -483,8 +481,6 @@ nav {
   font-size: 14px;
   color: var(--fg-body);
   line-height: 1.6;
-  margin-top: 6px;
-  margin-left: calc(52px + 16px);
 }
 
 .friend-list { display: flex; flex-direction: column; gap: 8px; }
